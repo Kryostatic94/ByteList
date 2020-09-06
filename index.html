@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <title>ByteList</title>
+    
+  </head>
+  <body>
+    <h1>Lista Byte</h1>
+    <hr>
+    <h3>Lista della spesa</h3>
+    <hr>
+    <div id="lista">
+        
+    </div>
+    <br>
+    <h3>Lista non trovati</h3>
+    <hr> <!–- Riga lunga -–> 
+    <div id="lista2">
+        
+    </div>
+    <br>
+    <button id="btn1">
+      Aggiungi alla lista
+    </button>
+    
+  </body>
+  <style>
+      *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color:aliceblue;
+        }
+        h3, h1{
+            text-align: center;
+        }
+        input[type=checkbox]{
+            width: 25px;
+            height: 25px;
+            margin-right: 20px;
+            float: left;
+        }
+        p{
+            line-height: 35px;
+            vertical-align: top;
+            width: 100%;
+            display: inline-block;
+        }
+        button{
+            margin-left: 10px;
+            float: right;
+            margin-top:5px;
+            background-color: cornflowerblue;
+            color:white;
+        }
+
+        #btn1{
+          float:left;
+        }
+  </style>
+
+    <script>
+     let sheet = window.document.styleSheets[0];
+     let elm=document.querySelector('#btn1')
+     elm.onclick=function(){
+         let i=prompt("Cosa?")
+         if(i.length<1){
+             return
+         }
+         let lista=document.querySelector('#lista')
+         let p=document.createElement("p")
+         p.innerText=i
+
+         let btnx3=document.createElement("button")
+         btnx3.innerText= "Modifica"
+         p.appendChild(btnx3)
+         btnx3.onclick=function(){
+            let i=prompt("Come vuoi modificarlo?")
+            p.innerText=i
+            p.appendChild(btnx3)
+            p.appendChild(btnx)
+            p.appendChild(check)
+            lista.appendChild(p)
+         }
+
+         let btnx=document.createElement("button")
+         btnx.innerText= "Non trovato"
+         let check=document.createElement("input")
+         check.setAttribute("type", "checkbox");
+         p.prepend(check) //Serve a mettere il p prima
+         check.addEventListener('change', (event)=>{
+                    if(event.target.checked)
+                    {
+                      p.id="fatto"
+                      p.removeChild(btnx)
+                      p.removeChild(check)
+                      p.removeChild(btnx3)
+                      sheet.insertRule('#fatto { text-decoration-line: line-through; }', sheet.cssRules.length)
+                      lista.appendChild(p)
+                    }else{
+                      null
+                    }
+                })
+         
+         
+         p.appendChild(btnx)
+         lista.appendChild(p)
+         btnx.onclick=function(){
+          this.parentElement.remove()
+             lista2.appendChild(p)
+             p.removeChild(btnx)
+             p.removeChild(check)
+             p.removeChild(btnx3)
+             let btnx2=document.createElement("button")
+             btnx2.innerText= "Trovato!"
+             p.appendChild(btnx2)
+             btnx2.onclick=function(){
+                this.parentElement.remove()
+                p.prepend(check) //Serve a mettere il p prima
+                p.removeChild(btnx2)
+                p.removeChild(check)
+                p.id="fatto"
+                sheet.insertRule('#fatto { text-decoration-line: line-through; }', sheet.cssRules.length)
+                lista.appendChild(p)
+                p.removeChild(btnx)
+                p.removeChild(btnx3)
+                }
+            }
+     }
+
+    </script>
+</html>
